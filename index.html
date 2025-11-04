@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tintin - La France Libre | Magazine de la Communauté</title>
+    <!-- Chargement de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Utilisation de la police Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Définition des couleurs Vives et Pastels */
+        :root {
+            --primary-red-vif: #FF6B6B;     /* Rouge corail/vif pour l'accentuation */
+            --secondary-blue-fonce: #2D3A4B; /* Bleu Ardoise foncé pour la structure */
+            --background-pastel: #EAF8F8;    /* Cyan très pâle pour le fond minimaliste */
+            --text-dark: #333333;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-pastel);
+            color: var(--text-dark);
+        }
+
+        /* Style du titre "Tintin" inspiré du logo, très audacieux */
+        .tintin-logo {
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--primary-red-vif);
+            /* Effet 3D léger */
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.5), 
+                         4px 4px 0px rgba(45, 58, 75, 0.1); 
+        }
+
+        /* Styles de la navigation sous forme d'onglets épurés */
+        .tab-link {
+            cursor: pointer;
+            padding: 12px 24px;
+            transition: all 0.3s ease;
+            border-radius: 2rem; /* Très arrondi */
+            font-weight: 700;
+            color: var(--secondary-blue-fonce);
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+        }
+        
+        .tab-link:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-link.active {
+            color: white;
+            background-color: var(--primary-red-vif);
+            box-shadow: 0 10px 20px -5px rgba(255, 107, 107, 0.5); /* Ombre rouge vive */
+        }
+        
+        /* Styles pour les liens/boutons d'action */
+        .action-link {
+            background-color: var(--secondary-blue-fonce);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.15);
+        }
+        .action-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 0 rgba(0, 0, 0, 0.15);
+        }
+        .action-link:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.15);
+        }
+
+        /* Style spécifique pour les cartes Bento */
+        .bento-card {
+            background-color: white;
+            border-radius: 2rem; /* Bordures très arrondies */
+            padding: 2.5rem; /* Grand espace intérieur */
+            box-shadow: 0 10px 30px rgba(45, 58, 75, 0.08); /* Ombre douce et profonde */
+            transition: transform 0.3s ease;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-3px); /* Effet de légèreté au survol */
+        }
+
+        /* Style pour la liste des numéros, pour le défilement */
+        .issues-scroll-area {
+            max-height: 500px;
+            overflow-y: auto;
+            /* Scrollbar invisible mais fonctionnelle */
+            scrollbar-width: none; /* Firefox */
+        }
+        .issues-scroll-area::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Conteneur Principal -->
+    <div id="app" class="min-h-screen flex flex-col pt-10 pb-16">
+
+        <!-- Zone Centrale (Conteneur du Bento et Navigation) -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+
+            <!-- Titre et Navigation (Positionnés au-dessus de la grille) -->
+            <header class="mb-10 text-center">
+                <h1 class="text-6xl sm:text-7xl font-black mb-2 leading-none">
+                    <span class="tintin-logo">TINTIN</span>
+                </h1>
+                <p class="text-xl sm:text-2xl font-light mb-8 text-secondary-blue-fonce" style="color: var(--secondary-blue-fonce);">
+                    Le magazine de l'aventure : La France Libre
+                </p>
+                
+                <!-- Navigation Tabbed -->
+                <nav id="nav-tabs" class="flex justify-center space-x-4">
+                    <a class="tab-link active" data-page="histoire">
+                        Histoire et Mission
+                    </a>
+                    <a class="tab-link" data-page="numeros">
+                        Archives (60 Numéros)
+                    </a>
+                </nav>
+            </header>
+
+            <!-- Contenu Principal (Bento Grid) -->
+            <main id="main-content" class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6">
+
+                <!-- --------------------------------- -->
+                <!-- PAGE 1: HISTOIRE ET MISSION (Default) -->
+                <!-- --------------------------------- -->
+                <div id="page-histoire" data-page-content class="page-content block md:col-span-4 grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <!-- Carte 1: Introduction (Grande et imposante) -->
+                    <div class="bento-card lg:col-span-2 p-8 sm:p-12">
+                        <h2 class="text-5xl font-extrabold mb-4 leading-tight" style="color: var(--primary-red-vif);">
+                            L'Esprit d'Aventure
+                        </h2>
+                        <div class="text-lg space-y-5 text-gray-700">
+                            <!-- Espace Réservé pour Votre Contenu -->
+                            <p>
+                                Ce magazine est le cœur battant de notre communauté. Né de l'esprit d'investigation et d'intégrité de notre héros tutélaire, il est le garant de la vérité et le catalyseur de la découverte pour les citoyens de la France Libre. 
+                            </p>
+                            <p>
+                                <span class="font-bold" style="color: var(--secondary-blue-fonce);">Veuillez insérer ici votre texte officiel.</span> Nous avons conçu cet espace pour que votre histoire soit mise en valeur, avec une typographie claire et une mise en page aérée. Utilisez cette carte pour le récit principal.
+                            </p>
+                            <p class="text-sm italic pt-2 border-t border-gray-100">
+                                La France Libre n'est pas un territoire, c'est une philosophie.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Carte 2: Mission (Petite carte d'accent) -->
+                    <div class="bento-card bg-primary-red-vif text-white flex flex-col justify-between">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 mb-4 opacity-80">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5V18a3 3 0 01-3 3h-1.5a3 3 0 01-3-3v-3z" />
+                        </svg>
+                        <p class="text-2xl font-bold mb-2">Notre Mission</p>
+                        <p class="text-sm opacity-90">
+                            Rapporter les faits, explorer l'inconnu, et inspirer la jeunesse à agir avec courage et éthique.
+                        </p>
+                        <p class="mt-4 font-extrabold text-xs tracking-widest uppercase">
+                            Vérité & Justice
+                        </p>
+                    </div>
+
+                    <!-- Carte 3: Contact (Largeur complète en bas) -->
+                    <div class="bento-card lg:col-span-3 p-6 sm:p-8 flex justify-between items-center bg-gray-50 border border-gray-100">
+                        <p class="text-xl font-semibold">
+                            Rejoignez le mouvement, abonnez-vous à nos mises à jour !
+                        </p>
+                        <button class="action-link" style="background-color: var(--primary-red-vif);">
+                            Nous Contacter
+                        </button>
+                    </div>
+                </div>
+
+                <!-- --------------------------------- -->
+                <!-- PAGE 2: ARCHIVES NUMÉROS (Bento List) -->
+                <!-- --------------------------------- -->
+                <div id="page-numeros" data-page-content class="page-content hidden md:col-span-4">
+                    
+                    <h2 class="text-4xl font-extrabold mb-8 text-center">
+                        Archives Complètes : <span style="color: var(--primary-red-vif);">60 Numéros</span> Parus
+                    </h2>
+
+                    <!-- Carte Contenant la Liste Défilante -->
+                    <div class="bento-card issues-scroll-area p-6 sm:p-8">
+                        <p class="mb-6 text-gray-500 font-medium">
+                            Cliquez sur "Voir PDF" pour consulter l'intégralité du numéro.
+                        </p>
+                        
+                        <ul id="issues-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                            <!-- La liste des numéros sera insérée ici par le script JavaScript -->
+                            <script>
+                                const issueList = document.getElementById('issues-list');
+                                if (issueList) {
+                                    for(let i = 1; i <= 60; i++){
+                                        const listItem = document.createElement('li');
+                                        // Style de carte miniature pour chaque numéro
+                                        listItem.className = 'bg-gray-50 p-4 rounded-xl border border-gray-100 hover:bg-gray-100 transition duration-200 shadow-sm flex flex-col justify-between space-y-2';
+                                        
+                                        listItem.innerHTML = `
+                                            <span class="font-bold text-sm uppercase tracking-wider" style="color: var(--secondary-blue-fonce);">
+                                                Numéro <span class="text-xl font-black" style="color: var(--primary-red-vif);">${i}</span>
+                                            </span>
+                                            <a href="pdf/numero${i}.pdf" target="_blank" class="action-link text-xs sm:text-sm text-center">
+                                                Voir PDF
+                                            </a>
+                                        `;
+                                        issueList.appendChild(listItem);
+                                    }
+                                }
+                            </script>
+                        </ul>
+                    </div>
+                </div>
+                
+            </main>
+            
+        </div>
+
+    </div>
+
+    <!-- Script de Gestion des Onglets (Mis à jour pour utiliser les classes de pages) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.tab-link');
+            const pageContents = document.querySelectorAll('.page-content');
+
+            // Fonction pour changer de page
+            const changePage = (pageId) => {
+                // Masquer toutes les pages et leurs containers
+                pageContents.forEach(content => {
+                    content.classList.add('hidden');
+                    // On retire la classe 'grid' pour assurer la transition
+                    content.classList.remove('grid'); 
+                });
+
+                // Afficher la page demandée
+                const activePage = document.getElementById(`page-${pageId}`);
+                if (activePage) {
+                    activePage.classList.remove('hidden');
+                    // Réappliquer la grille propre à cette page
+                    if (pageId === 'histoire') {
+                         activePage.classList.add('grid', 'md:col-span-4');
+                    } else if (pageId === 'numeros') {
+                         activePage.classList.add('md:col-span-4');
+                    }
+                }
+
+                // Mettre à jour les onglets actifs
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-page') === pageId) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+
+            // Écouter les clics sur les liens de navigation (onglets)
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = link.getAttribute('data-page');
+                    changePage(pageId);
+                });
+            });
+
+            // Initialiser la page (par défaut à 'histoire')
+            changePage('histoire');
+        });
+    </script>
+
+</body>
+</html>
